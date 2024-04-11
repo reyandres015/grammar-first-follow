@@ -4,14 +4,15 @@
     - Luis David Arias
 """
 
-t = ["+","-","*","/","ε","id","num","(",")"]
-nt = ["E","E'","T","T'","f"]
+t = ["+","*","ε","(",")","ident"]
+nt = ["E","E'","T","T'","F"]
+
 grammar = {
-"E":[("T","E'")],
-"E'":[("+","T","E'"),("-","T","E'"),("ε",)],
-"T":[("f","T'")],
-"T'":[("*","f","T'"),("/","f","T'"),("ε",)],
-"f":[("(","E",")"),("id",),("num",)]
+    'E': [['T', "E'"]],
+    "E'": [['+', 'T', "E'"], ['ε']],
+    'T': [['F', "T'"]],
+    "T'": [['*', 'F', "T'"], ['ε']],
+    'F': [['(', 'E', ')'], ['ident']]
 }
 
 def isTerminal(s):
@@ -82,12 +83,12 @@ def printGrammar():
 def printFirsts():
     print("Primeros:")
     for nont in nt:
-        print(first(nont))
+        print(f'P({nont}) ={first(nont)}')
 
 def printFollows():
     print("Siguientes:")
     for nont in nt:
-        print(follow(nont))
+        print(f'S({nont}) = {follow(nont)}')
 
 
 def main():
