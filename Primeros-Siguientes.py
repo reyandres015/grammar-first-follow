@@ -1,18 +1,13 @@
-# -*- coding: utf-8 -*-
-"""
-    Primeros y Siguientes de una gramatica en Python
-    - Luis David Arias
-"""
+t = ["bad","big","boss","cat","cow","bet"]
+nt = ["A","B","C"]
 
-t = ["+","*","ε","(",")","ident"]
-nt = ["E","E'","T","T'","F"]
+grammarKeys = ["A","B","B","C","C"]
+grammarValues = [['B', "C"],['bad'],['big', "C","boss"],['ε'],['cat'],['cow']]
 
 grammar = {
-    'E': [['T', "E'"]],
-    "E'": [['+', 'T', "E'"], ['ε']],
-    'T': [['F', "T'"]],
-    "T'": [['*', 'F', "T'"], ['ε']],
-    'F': [['(', 'E', ')'], ['ident']]
+    "A": [['B', "C"],["bad"]],
+    "B": [['big', "C","boss"],['bet']],
+    "C": [['cat'],['cow']]
 }
 
 def isTerminal(s):
@@ -37,12 +32,9 @@ def findSymbol(s):
 def first(s):
     firsts = []
     for production in grammar[s]:#Para cada produccion de la regla
-        #print("Analizamos la produccion "+str(production))
         if(isTerminal(production[0])):
-            #print(production[0]+" es terminal")
             firsts.append(production[0])
         elif(isNonTerminal(production[0])):
-            #print(production[0]+" es no terminal")
             firsts+=first(production[0])
     return firsts
 
