@@ -1,6 +1,6 @@
 grammar = {
-    "A": [['B', "C"], ["bad"]],
-    "B": [['big', "C", "boss"], ['ε']],
+    "A": [['B', "C"], ["ant",'A','all']],
+    "B": [['big', "C"], ['bus','A','boss',],['ε']],
     "C": [['cat'], ['cow']]
 }
 nt = grammar.keys()
@@ -73,7 +73,7 @@ def follow(s):
                     follows += nxt
             else:
                 if (s != nont):
-                    follows = follow(nont)
+                    follows += follow(nont)
     follows = list(set(follows))
     if ("ε" in follows):
         follows.remove("ε")
